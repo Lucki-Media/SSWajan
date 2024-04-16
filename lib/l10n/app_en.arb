@@ -1,0 +1,20 @@
+{
+  "@@locale": "en",
+  "kTitle1": "SS Pipe Weight Calculation",
+  "kOD": "OD",
+  "kThickness" : "Thickness",
+  "kAnswer" : "Answer",
+  "kPerFeet" : "Per Feet",
+  "kNumber" : "Number",
+  "kFinalAnswer": "Final Answer",
+  "kTitle2":"SS Round Bar Weight Calculation",
+  "kDia" : "Dia",
+  "kTitle3": "SS Sheet Bar Weight Calculation",
+  "kLengthFeet" : "Length Feet",
+  "kWidthFeet" : "Width Feet",
+  "kTitle4": "SS Square Bar Calculation",
+  "kTitle5": "SS Circle Calculation",
+  "kDiaMM" :"Dia MM",
+  "kTitle6": "SS Patti Calculation",
+  "kWidth": "Width"
+}
