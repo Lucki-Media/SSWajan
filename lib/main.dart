@@ -14,7 +14,12 @@ import 'package:splash_view/source/presentation/widgets/done.dart';
 import 'l10n/l10n.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  runApp(ProviderScope(
+      child: const MyApp()));
 }
 
 class MyApp extends ConsumerWidget  {

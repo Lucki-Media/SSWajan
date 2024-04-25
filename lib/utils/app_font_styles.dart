@@ -15,11 +15,11 @@ class AppFontStyles {
     );
   }
   static TextStyle headlineMedium() {
-    return TextStyle(
+    return const TextStyle(
       fontFamily: arvo,
       color: AppColors.kOffWhite,
       fontWeight: FontWeight.w700,
-      fontSize: 16,
+      fontSize: 15.5,
     );
   }
   // static TextStyle headlineSmall() {
