@@ -10,7 +10,11 @@ final ssPattiFinalAnsProvider =
 Provider<double>((ref) => calculateSSPattiTotal(ref.watch(ssPattiAnsProvider), ref.watch(ssPattiNumberProvider)));
 
 double calculateSSPatti(double width, double thickness) {
-  return width * thickness * 0.00243;
+  if (width == 0 || thickness == 0) {
+    return 0.0; // Return 0 if either value is 0
+  } else {
+    return width * thickness * 0.00243;
+  }
 }
 double calculateSSPattiTotal(double perFeetWeight,double totalNumber) {
   return  perFeetWeight * totalNumber;

@@ -8,5 +8,9 @@ Provider<double>((ref) => calculatebrassCopperPipeWeight(ref.watch(brassCopperPi
 
 
 double calculatebrassCopperPipeWeight(double od, double thickness) {
-  return (od - thickness) * thickness * 0.0260;
+  if (od == 0 || thickness == 0) {
+    return 0.0; // Return 0 if either value is 0
+  } else {
+    return (od - thickness) * thickness * 0.0260;
+  }
 }

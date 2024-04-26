@@ -8,5 +8,9 @@ Provider<double>((ref) => calculateSquareFeetConvert(ref.watch(ssSquareFeetConve
 
 
 double calculateSquareFeetConvert(double length, double width) {
-  return length * width / 144;
+  if (width == 0 || length == 0) {
+    return 0.0; // Return 0 if either value is 0
+  } else {
+    return length * width / 144;
+  }
 }

@@ -11,6 +11,10 @@ final ssCircleAnsProvider = Provider<double>((ref) => calculateSSCircle(
 
 
 double calculateSSCircle(double dia, double thickness) {
-  // Formula: Weight = width * length * thickness * density
-  return dia * dia * thickness * 0.0000063 ;
+  if (dia == 0 || thickness == 0) {
+    return 0.0; // Return 0 if either value is 0
+  } else {
+    // Formula: Weight = width * length * thickness * density
+    return dia * dia * thickness * 0.0000063;
+  }
 }

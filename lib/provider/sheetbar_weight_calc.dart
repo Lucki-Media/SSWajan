@@ -12,6 +12,10 @@ final sheetBarWeightProvider = Provider<double>((ref) => calculateSheetBarWeight
 
 
 double calculateSheetBarWeight(double width, double length, double thickness) {
-  // Formula: Weight = width * length * thickness * density
-  return width * length * thickness * 3/4;
+  if (width == 0 || length == 0 || thickness == 0) {
+    return 0.0; // Return 0 if either value is 0
+  } else {
+    // Formula: Weight = width * length * thickness * density
+    return width * length * thickness * 3 / 4;
+  }
 }
