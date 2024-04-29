@@ -11,28 +11,16 @@ class ArrowContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        clipBehavior: Clip.none,
-      children: [
-        ClipPath(
-          clipper: ArrowClipper(),
-          child: Container(
-            padding: EdgeInsets.only(left: 6,right: 45,top: 8),
-            height: height,
-            color: AppColors.kYellow,
-            child: Text(
-              text,style: AppFontStyles.headlineMedium(),
-            ),
-          ),
-        ),
-        Positioned(
-          right: -35.0, // Set right to 0.0 for full width
-          top: 0.0, // Set top to 0.0 for full height (optional)
-          child: Image.asset(
-            'assets/images/Bookmark.png',
-            scale: 4, // Adjust scale as needed
-          ),),
-      ],
+    return Container(
+      padding: EdgeInsets.only(left: 10,right: 22,top: 8),
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topRight:Radius.circular(20) ,bottomRight: Radius.circular(20)),
+        color: AppColors.kYellow,
+      ),
+      child: Text(
+        text,style: AppFontStyles.headlineMedium(),
+      ),
     );
   }
 }

@@ -25,8 +25,8 @@
   "kAnswerPerPC" : "Answer (Wt.Per PC)",
   "kAnswerKg" : "Answer (kg)",
   "kTitle8": "5. SS Hexagonal Bar Calculation",
-  "kTitle10": "11. SS Square Feet Converter",
+  "kTitle10": "11. Square Feet Converter",
   "kLengthInch" : "Length(Inch)",
   "kWidthInch" : "Width(Inch)",
-  "kAnswerSquarePerFeet" : "Answer (Sq. Per Feet)"
+  "kAnswerSquarePerFeet" : "Answer (Sq. Feet)"
 }
