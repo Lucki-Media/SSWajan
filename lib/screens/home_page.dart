@@ -187,15 +187,9 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           title: Column(
             children: [
-              ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (bounds) => Gradiant().createShader(
-                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-                ),
-                child: Text(
-                  AppStrings.kAppName,
-                  style: AppFontStyles.headlineLarge(),
-                ),
+              Text(
+                AppStrings.kAppName,
+                style: AppFontStyles.headlineLarge(),
               ),
               SizedBox(
                 height: 5,
@@ -1314,6 +1308,87 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget calc10(BuildContext context, WidgetRef ref){
+    final brassCopperPipeWeight = ref.watch(brassCopperPipeWeightProvider);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ArrowContainer(
+          height: 40,
+          text: AppLocalizations.of(context)!.kTitle11,
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: CommonTextFormField(
+                  labelText: AppLocalizations.of(context)!.kOD,
+                  controller: brassCopperPipeOdController,
+                  onTap: (){
+                    switchToCalc("calc11",ref);
+                  },
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      ref
+                          .read(brassCopperPipeOdProvider
+                          .notifier)
+                          .state = 0.0;
+                    } else {
+                      ref
+                          .read(brassCopperPipeOdProvider.notifier)
+                          .state = double.parse(value);}
+                  },
+                )),
+            const SizedBox(
+              width: 15,
+            ),
+            Expanded(
+                flex: 1,
+                child: CommonTextFormField(
+                  labelText:
+                  AppLocalizations.of(context)!.kThickness,
+                  controller: brassCopperPipeThicknessController,
+                  onTap: (){
+                    switchToCalc("calc11",ref);
+                  },
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      ref
+                          .read(brassCopperPipeThicknessProvider
+                          .notifier)
+                          .state = 0.0;
+                    } else {
+                      ref
+                          .read(brassCopperPipeThicknessProvider
+                          .notifier)
+                          .state = double.parse(value);}
+                  },
+                )),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          AppLocalizations.of(context)!.kAnswer,
+          style: AppFontStyles.bodyLarge(),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CommonTextFormField(
+          labelText: AppLocalizations.of(context)!.kAnswerPerMtr,
+          enabled: false,
+          controller: TextEditingController(
+              text: brassCopperPipeWeight.toStringAsFixed(3)),
+        ),
+      ],
+    );
+  }
+
+  Widget calc11(BuildContext context, WidgetRef ref){
     final ssSquareFeetConvertAns = ref.watch(ssSquareFeetConvertProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1397,86 +1472,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget calc11(BuildContext context, WidgetRef ref){
-    final brassCopperPipeWeight = ref.watch(brassCopperPipeWeightProvider);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ArrowContainer(
-          height: 40,
-          text: AppLocalizations.of(context)!.kTitle11,
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        Row(
-          children: [
-            Expanded(
-                flex: 1,
-                child: CommonTextFormField(
-                  labelText: AppLocalizations.of(context)!.kOD,
-                  controller: brassCopperPipeOdController,
-                  onTap: (){
-                    switchToCalc("calc11",ref);
-                  },
-                  onChanged: (value) {
-                    if (value.isEmpty) {
-                      ref
-                          .read(brassCopperPipeOdProvider
-                          .notifier)
-                          .state = 0.0;
-                    } else {
-                      ref
-                          .read(brassCopperPipeOdProvider.notifier)
-                          .state = double.parse(value);}
-                  },
-                )),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-                flex: 1,
-                child: CommonTextFormField(
-                  labelText:
-                  AppLocalizations.of(context)!.kThickness,
-                  controller: brassCopperPipeThicknessController,
-                  onTap: (){
-                    switchToCalc("calc11",ref);
-                  },
-                  onChanged: (value) {
-                    if (value.isEmpty) {
-                      ref
-                          .read(brassCopperPipeThicknessProvider
-                          .notifier)
-                          .state = 0.0;
-                    } else {
-                      ref
-                          .read(brassCopperPipeThicknessProvider
-                          .notifier)
-                          .state = double.parse(value);}
-                  },
-                )),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          AppLocalizations.of(context)!.kAnswer,
-          style: AppFontStyles.bodyLarge(),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        CommonTextFormField(
-          labelText: AppLocalizations.of(context)!.kAnswerPerMtr,
-          enabled: false,
-          controller: TextEditingController(
-              text: brassCopperPipeWeight.toStringAsFixed(3)),
-        ),
-      ],
-    );
-  }
+
 
   LinearGradient Gradiant(){
     return LinearGradient(
