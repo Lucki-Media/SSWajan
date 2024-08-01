@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+2
+version: 1.0.2+5
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
@@ -41,6 +41,7 @@ dependencies:
   intl:
   multiple_localization:
   flutter_launcher_icons:
+  flutter_svg: ^2.0.10+1
 
 
 flutter_launcher_icons:
@@ -95,5 +96,12 @@ flutter:
           weight: 400
         - asset: assets/fonts/Arvo-Bold.ttf
           weight: 700
+    - family: Futura
+      fonts:
+        - asset: assets/fonts/FuturaLMbold.otf
+        - asset: assets/fonts/FuturaLMLight.otf
+        - asset: assets/fonts/FuturaLMMedium.otf
+        - asset: assets/fonts/FuturaRegular.otf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

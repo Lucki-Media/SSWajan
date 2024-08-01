@@ -5,7 +5,36 @@ import 'app_colors.dart';
 
 class AppFontStyles {
   static const String arvo = 'Arvo';
+  static const String futura = 'Futura';
 
+  ///new app fontstyle
+
+  static TextStyle splashText() {
+    return TextStyle(
+      fontFamily: futura,
+      color: AppColors.kWhite,
+      fontWeight: FontWeight.bold,
+      fontSize: 33,
+    );
+  }
+  static TextStyle splashSubText({ double fontSize = 20,Color color = AppColors.kWhite,FontWeight fontWeight = FontWeight.w500
+  }) {
+    return TextStyle(
+      fontFamily: futura,
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+    );
+  }
+
+
+
+
+
+
+
+
+  ///old app fontstyle
   static TextStyle headlineLarge() {
     return TextStyle(
         fontFamily: arvo,

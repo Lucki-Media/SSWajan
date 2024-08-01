@@ -5,10 +5,8 @@ final ssSquareRectSize1Provider = StateProvider<double>((ref) => 0);
 final ssSquareRectSize2Provider = StateProvider<double>((ref) => 0);
 final ssSquareRectThicknessProvider = StateProvider<double>((ref) => 0);
 final ssSquareRectNumberProvider = StateProvider<double>((ref) => 0);
-final ssSquareRectAnsProvider =
-Provider<double>((ref) => calculateSSSquareRect(ref.watch(ssSquareRectSize1Provider), ref.watch(ssSquareRectSize2Provider), ref.watch(ssSquareRectThicknessProvider)));
-final ssSquareRectFinalAnsProvider =
-Provider<double>((ref) => calculateSSSquareRectTotal(ref.watch(ssSquareRectAnsProvider), ref.watch(ssSquareRectNumberProvider)));
+final ssSquareRectAnsProvider = Provider<double>((ref) => calculateSSSquareRect(ref.watch(ssSquareRectSize1Provider), ref.watch(ssSquareRectSize2Provider), ref.watch(ssSquareRectThicknessProvider)));
+final ssSquareRectFinalAnsProvider = Provider<double>((ref) => calculateSSSquareRectTotal(ref.watch(ssSquareRectAnsProvider), ref.watch(ssSquareRectNumberProvider)));
 
 double calculateSSSquareRect(double size1,double size2, double thickness) {
   if (size1 == 0 || size2 == 0 || thickness == 0) {

@@ -1,37 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:s_s_wajan/provider/locale_provider.dart';
+import 'package:s_s_wajan/provider/pip_weight_calc.dart';
+import 'package:s_s_wajan/provider/roundbar_weight_calc.dart';
+import 'package:s_s_wajan/provider/sheetbar_weight_calc.dart';
+import 'package:s_s_wajan/provider/squarebar_weight_calc.dart';
+import 'package:s_s_wajan/provider/ss_circle_calc.dart';
+import 'package:s_s_wajan/provider/ss_patti_calc.dart';
+import 'package:s_s_wajan/provider/ss_square_feet_converter.dart';
+import 'package:s_s_wajan/provider/ss_square_rect_calc.dart';
 import 'package:s_s_wajan/utils/app_colors.dart';
-import 'package:s_s_wajan/utils/app_font_styles.dart';
-import 'package:s_s_wajan/utils/common_textformfield.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:s_s_wajan/utils/arrow_container.dart';
+
 import '../provider/aluminium_pipe_calc.dart';
 import '../provider/brass_copper_pipe_calc.dart';
-import '../provider/flatbar_weight_calc.dart';
 import '../provider/hexagonal_bar_weight_calc.dart';
-import '../provider/locale_provider.dart';
-import '../provider/pip_weight_calc.dart';
-import '../provider/roundbar_weight_calc.dart';
-import '../provider/sheetbar_weight_calc.dart';
-import '../provider/squarebar_weight_calc.dart';
-import '../provider/ss_circle_calc.dart';
-import '../provider/ss_patti_calc.dart';
-import '../provider/ss_square_feet_converter.dart';
-import '../provider/ss_square_rect_calc.dart';
-import '../utils/App_commom_widget.dart';
-import '../utils/app_strings.dart';
-import '../utils/arrow_container.dart';
+import '../utils/app_font_styles.dart';
+import '../utils/common_textformfield.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class CalculatorScreen extends StatefulWidget {
+  int? selIndex;
+  String? appBarName;
+   CalculatorScreen({this.selIndex,this.appBarName,Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CalculatorScreen> createState() => _CalculatorScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CalculatorScreenState extends State<CalculatorScreen> {
+
   final TextEditingController pipeODController = TextEditingController();
   final TextEditingController pipeThicknessController = TextEditingController();
   final TextEditingController pipeNumberController = TextEditingController();
@@ -175,266 +174,195 @@ class _HomePageState extends State<HomePage> {
     return Consumer(builder: (context, ref, _) {
       final provider = ref.watch(localProvider);
       return Scaffold(
-        backgroundColor: AppColors.kLightGrey,
-        appBar: AppBar(
-          toolbarHeight: 90,
-          backgroundColor: AppColors.kBlack.withOpacity(.80),
-          leading: Padding(
-            padding: const EdgeInsets.only(bottom: 5.0, left: 12),
-            child: Image.asset(
-              'assets/images/rounded_logo.png',
+      appBar: AppBar(
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(2.0),
+            child: Container(
+              color: AppColors.kWhite,
+              height: 2.0,
+              width: double.infinity,
+            )),
+        toolbarHeight: 50,
+        backgroundColor: AppColors.kBlack,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        },icon: Icon(Icons.arrow_back,color: AppColors.kWhite,),),
+        centerTitle: true,
+        title: Text(
+          '${widget.appBarName.toString()} Calculation',
+          style: AppFontStyles.splashSubText(fontWeight: FontWeight.bold),
+        ),
+
+      ),
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.black
             ),
           ),
-          centerTitle: true,
-          title: Column(
-            children: [
-              Text(
-                AppStrings.kAppName,
-                style: AppFontStyles.headlineLarge(),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (bounds) => Gradiant().createShader(
-                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-                ),
-                child: RichText(
-                  text: TextSpan(
-                    style: AppFontStyles.bodyMedium(),
-                    children: [
-                      TextSpan(
-                        text: AppStrings.kPoweredBy,
-                      ),
-                      TextSpan(
-                        text: AppStrings.kPrithviSteel,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                    ],
+          Image.asset('assets/images/mainHome.png',fit: BoxFit.cover,height: double.infinity,
+            width: double.infinity,),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Container(
+                    height: 300,
+                    width: double.infinity,
+                    decoration: BoxDecoration( borderRadius: BorderRadius.all(Radius.circular(20)),color: Color.fromRGBO(51, 51, 51, 1)),
+                   child: widget.selIndex == 0?calc1(context, ref):Container(),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (bounds) => Gradiant().createShader(
-                  Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-                ),
-                child: Text(
-                  AppStrings.kAhmedabad,
-                  style: AppFontStyles.bodyMedium(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: GestureDetector(
-                  onTap: () {
-                    ref.read(localProvider.notifier).toggleLocale();
-                    print(provider);
-                  },
-                  child: provider.languageCode == 'en'
-                      ? Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/mode_comment.png',
-                              scale: 3.2,
-                            ),
-                            Text(
-                              'हिं',
-                              style: AppFontStyles.bodyMedium(
-                                  color: AppColors.kWhite),
-                            )
-                          ],
-                        )
-                      : Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/mode_comment.png',
-                              scale: 3.2,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 4.0),
-                              child: Text(
-                                'En',
-                                style: AppFontStyles.bodyMedium(
-                                    color: AppColors.kWhite),
-                              ),
-                            )
-                          ],
-                        )),
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 22),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   calc1(context, ref),
-                  AppCommonWidget.appDivider(),
-                  calc2(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc3(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc4(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc5(context,ref),
-                  AppCommonWidget.appDivider(),
-                   calc6(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc7(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc8(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc9(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc10(context,ref),
-                  AppCommonWidget.appDivider(),
-                  calc11(context,ref),
-                  SizedBox(
-                    height: 20,
+                SizedBox(height: 30,),
+                  Container(
+                    height: 400,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color.fromRGBO(51, 51, 51, 1)),
                   ),
                 ],
-              ),
             ),
           ),
-        ),
-      );
-    });
+        ],
+      ),
+    ); });
+  }
+  String formatValue(double value) {
+    return value == 0 ? '' : value.toStringAsFixed(0);
   }
 
   Widget calc1(BuildContext context, WidgetRef ref) {
     final pipeWeightPerFeet = ref.watch(pipeWeightProvider);
     final pipeWeightTotal = ref.watch(pipeWeightFinalAnsProvider);
-    return                   Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ArrowContainer(
-          height: 40,
-          text: AppLocalizations.of(context)!.kTitle1,
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        Row(
-          children: [
-            Expanded(
-                flex: 1,
-                child: CommonTextFormField(
-                    labelText: AppLocalizations.of(context)!.kOD,
-                    controller: pipeODController,
+    return   Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          Row(
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: CommonTextFormField(
+                      labelText: 'OD(mm)',
+                      hintText: AppLocalizations.of(context)!.kOD,
+                      // hintStyle: TextStyle(color: Colors.grey),
+                     // labelText: AppLocalizations.of(context)!.kOD,
+                     //  hintText: AppLocalizations.of(context)!.kOD,
+
+                      controller: pipeODController,
+                      onTap: (){
+                        switchToCalc("calc1",ref);
+                      },
+                      onChanged: (value) {
+                        if (value.isEmpty) {
+                          ref.read(pipeODProvider.notifier).state =
+                          0.0;
+                        } else {
+                          ref.read(pipeODProvider.notifier).state =
+                              double.parse(value);
+                        }
+                      })),
+              const SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                  flex: 1,
+                  child: CommonTextFormField(
+                    labelText: 'Thickness',
+                   // labelText: AppLocalizations.of(context)!.kThickness,
+                    hintText: AppLocalizations.of(context)!.kThickness,
+                    controller: pipeThicknessController,
                     onTap: (){
                       switchToCalc("calc1",ref);
                     },
                     onChanged: (value) {
                       if (value.isEmpty) {
-                        ref.read(pipeODProvider.notifier).state =
-                        0.0;
+                        ref
+                            .read(pipeThicknessProvider.notifier)
+                            .state = 0.0; // Set to 0 if empty
                       } else {
-                        ref.read(pipeODProvider.notifier).state =
-                            double.parse(value);
+                        ref
+                            .read(pipeThicknessProvider.notifier)
+                            .state = double.parse(value);
                       }
-                    })),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
+                    },
+                  )),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Divider(color: AppColors.kYellow,),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              Expanded(
                 flex: 1,
                 child: CommonTextFormField(
-                  labelText:
-                  AppLocalizations.of(context)!.kThickness,
-                  controller: pipeThicknessController,
+
+                //  labelText: AppLocalizations.of(context)!.kPerFeet,
+                  hintText: AppLocalizations.of(context)!.kPerFeet,
+                  enabled: false,
+                  controller: TextEditingController(text: formatValue(pipeWeightPerFeet)),
+                 // controller: TextEditingController(text: pipeWeightPerFeet.toStringAsFixed(3)),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(Icons.close,color: AppColors.kWhite,),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 1,
+                child: CommonTextFormField(
+                  labelText: 'Number of Feet',
+                  //labelText: AppLocalizations.of(context)!.kNumberOfFeet,
+                  hintText: AppLocalizations.of(context)!.kNumberOfFeet,
+                  controller: pipeNumberController,
                   onTap: (){
                     switchToCalc("calc1",ref);
                   },
                   onChanged: (value) {
                     if (value.isEmpty) {
-                      ref
-                          .read(pipeThicknessProvider.notifier)
-                          .state = 0.0; // Set to 0 if empty
+                      ref.read(pipeNumberProvider.notifier).state =
+                      0.0;
                     } else {
-                      ref
-                          .read(pipeThicknessProvider.notifier)
-                          .state = double.parse(value);
+                      ref.read(pipeNumberProvider.notifier).state =
+                          double.parse(value);
                     }
                   },
-                )),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          AppLocalizations.of(context)!.kAnswer,
-          style: AppFontStyles.bodyLarge(),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: CommonTextFormField(
-                labelText: AppLocalizations.of(context)!.kPerFeet,
-                enabled: false,
-                controller: TextEditingController(
-                    text: pipeWeightPerFeet.toStringAsFixed(3)),
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            const Icon(Icons.close),
-            const SizedBox(width: 8),
-            Expanded(
-              flex: 1,
-              child: CommonTextFormField(
-                labelText:
-                AppLocalizations.of(context)!.kNumberOfFeet,
-                controller: pipeNumberController,
-                onTap: (){
-                  switchToCalc("calc1",ref);
-                },
-                onChanged: (value) {
-                  if (value.isEmpty) {
-                    ref.read(pipeNumberProvider.notifier).state =
-                    0.0;
-                  } else {
-                    ref.read(pipeNumberProvider.notifier).state =
-                        double.parse(value);
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          AppLocalizations.of(context)!.kFinalAnswer,
-          style: AppFontStyles.bodyLarge(),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        CommonTextFormField(
-          labelText: AppLocalizations.of(context)!.kAnswerKg,
-          enabled: false,
-          controller: TextEditingController(
-              text: pipeWeightTotal.toStringAsFixed(3)),
-        ),
-      ],
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Divider(color: AppColors.kYellow,),
+          const SizedBox(
+            height: 15,
+          ),
+
+          CommonTextFormField(
+           // labelText: AppLocalizations.of(context)!.kAnswerKg,
+            hintText: AppLocalizations.of(context)!.kAnswerKg,
+            enabled: false,
+            controller: TextEditingController(text: formatValue(pipeWeightTotal)),
+            // controller: TextEditingController(
+            //     text: pipeWeightTotal.toStringAsFixed(0)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -1474,14 +1402,4 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-
-  LinearGradient Gradiant(){
-    return LinearGradient(
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-        colors: <Color>[
-          Colors.white.withOpacity(.5),
-          Colors.white,
-        ]);
-}
 }
