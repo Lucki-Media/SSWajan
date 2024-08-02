@@ -13,4 +13,6 @@ class AppColors {
 
   ///newColor
   static const Color kNewGrey = Color(0xffB5B5B5);
+  static const Color kBorderGrey = Color(0xff535353);
+  static const Color kHintGrey = Color(0xffACACAC);
 }

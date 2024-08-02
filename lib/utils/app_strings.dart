@@ -40,5 +40,19 @@ class AppStrings {
     'assets/images/10.svg',
     'assets/images/11.svg',
   ];
-
+  static List<String> getSteelList1(BuildContext context) {
+    return [
+      AppLocalizations.of(context)!.kTitle1,
+      AppLocalizations.of(context)!.kTitle7,
+      AppLocalizations.of(context)!.kTitle2,
+      AppLocalizations.of(context)!.kTitle4,
+      AppLocalizations.of(context)!.kTitle8,
+      AppLocalizations.of(context)!.kTitle3,
+      AppLocalizations.of(context)!.kTitle6,
+      AppLocalizations.of(context)!.kTitle5,
+      AppLocalizations.of(context)!.kTitle9,
+      AppLocalizations.of(context)!.kTitle10,
+      AppLocalizations.of(context)!.kTitle11,
+    ];
+  }
 }
